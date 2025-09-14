@@ -113,11 +113,11 @@ class TwoLayerMLP:
         
         # Initialize weights and biases for both layers
         # First layer: input to hidden
-        self.W1 = np.random.randn(n_input, n_hidden) * 0.1
+        self.W1 = np.random.randn(n_input, n_hidden) * 0.01
         self.b1 = np.zeros(n_hidden)
         
         # Second layer: hidden to output
-        self.W2 = np.random.randn(n_hidden, n_output) * 0.1
+        self.W2 = np.random.randn(n_hidden, n_output) * 0.01
         self.b2 = np.zeros(n_output)
     
     def sigmoid(self, z):
@@ -257,15 +257,15 @@ class ThreeLayerMLP:
         
         # Initialize weights and biases for all three layers
         # First layer: input to hidden1
-        self.W1 = np.random.randn(n_input, n_hidden1) * 0.1
+        self.W1 = np.random.randn(n_input, n_hidden1) * 0.01
         self.b1 = np.zeros(n_hidden1)
         
         # Second layer: hidden1 to hidden2
-        self.W2 = np.random.randn(n_hidden1, n_hidden2) * 0.1
+        self.W2 = np.random.randn(n_hidden1, n_hidden2) * 0.01
         self.b2 = np.zeros(n_hidden2)
         
         # Third layer: hidden2 to output
-        self.W3 = np.random.randn(n_hidden2, n_output) * 0.1
+        self.W3 = np.random.randn(n_hidden2, n_output) * 0.01
         self.b3 = np.zeros(n_output)
     
     def sigmoid(self, z):
@@ -293,7 +293,9 @@ class ThreeLayerMLP:
         # h2 = self.relu(z2)
         h2 = self.sigmoid(z2)
         if self.use_residual:
-            raise NotImplementedError  # Residual connection: add previous layer output
+            h2 = h2 + h1
+
+            # raise NotImplementedError  # Residual connection: add previous layer output
         else:
             pass
         # output layer

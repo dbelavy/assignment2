@@ -282,9 +282,9 @@ def train_model(model, X_train, y_train, X_val, y_val, X_test, y_test, epochs, l
         num_batches = 0
 
         # work out L2 norm of params
-        if epoch % 10 == 0:
+        if (epoch+1) % 10 == 0:
             params = model.get_params()
-            print(f"Epoch {epoch}")
+            print(f"Epoch {epoch+1}")
             print(f"L2 norm of parameters: {np.sqrt((np.sum(params**2))):.4f}")
             print(f"Max parameter value: {np.max(params):.4f}, Min parameter value: {np.min(params):.4f}")
             print(f"Mean parameter value: {np.mean(params):.4f}, Std parameter value: {np.std(params):.4f}")
@@ -308,19 +308,13 @@ def train_model(model, X_train, y_train, X_val, y_val, X_test, y_test, epochs, l
             
             # Get current parameters
             params = model.get_params()
-            # print(f"Got params.")
-
-            # work out L2 norm of params
-            if epoch % 10 == 0:
-                l2_norm = anp.sqrt(sum(anp.sum(param**2) for param in params))
-
 
             # Compute gradients
             grad_fn_batch = grad(batch_loss_fn)
             gradients = grad_fn_batch(params)
             # print(f"Length of Gradients: {len(gradients)}")
 
-            new_params = params-learning_rate*gradients
+            new_params = params-learning_rate*gradients# *params
             # TODO: Update parameters using gradient descent
             #
             # Gradient descent updates parameters by moving in the opposite direction
